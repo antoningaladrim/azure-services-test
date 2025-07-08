@@ -1,14 +1,15 @@
 import {
+	BlobSASPermissions,
 	BlobServiceClient,
+	SASProtocol,
 	StorageSharedKeyCredential,
 	generateBlobSASQueryParameters,
-	BlobSASPermissions,
-	SASProtocol,
 } from '@azure/storage-blob';
+import { config } from '../config';
 
-const accountName = '<your_account_name>';
-const accountKey = '<your_account_key>';
-const containerName = 'gide-km-import';
+const accountName = config.blob.accountName;
+const accountKey = config.blob.accountKey;
+const containerName = config.blob.containerName;
 const endpointUrl = `https://${accountName}.blob.core.windows.net`;
 
 const createSasUrl = ({

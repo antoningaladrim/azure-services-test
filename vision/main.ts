@@ -1,9 +1,10 @@
 // @see https://github.com/Azure-Samples/cognitive-services-quickstart-code/blob/master/javascript/ComputerVision/REST/node-print-text.md
 
 import request from 'request';
+import { config } from '../config';
 
-const key = 'your key';
-const endpoint = 'your endpoint';
+const apiKey = config.apiKey;
+const endpoint = config.vision.endpoint;
 
 const uriBase = `${endpoint}/vision/v3.1/ocr`;
 
@@ -20,7 +21,7 @@ const options = {
 	body: `{"url": "${imageUrl}"}`,
 	headers: {
 		'Content-Type': 'application/json',
-		'Ocp-Apim-Subscription-Key': key,
+		'Ocp-Apim-Subscription-Key': apiKey,
 	},
 };
 

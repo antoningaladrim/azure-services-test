@@ -1,15 +1,13 @@
 import { AzureOpenAI } from 'openai';
+import { config } from '../config';
 
-const deployment = 'your deployment name';
 const apiVersion = '2024-10-21';
-const endpoint = 'your endpoint';
-const apiKey = 'your api key';
 
 const openaiClient = new AzureOpenAI({
-	apiKey,
+	apiKey: config.apiKey,
 	apiVersion,
-	endpoint,
-	deployment,
+	endpoint: config.openai.endpoint,
+	deployment: config.openai.deployment,
 });
 
 const testChatCompletion = async () => {
