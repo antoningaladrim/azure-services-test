@@ -20,28 +20,6 @@ class AzureVisionOCR {
 		);
 	}
 
-	async _ocrCall(imageBuffer: Buffer) {
-		const result = await this.client.readInStream(imageBuffer);
-		const operationLocation = result.operationLocation;
-		const operationId = operationLocation.substring(
-			operationLocation.lastIndexOf('/') + 1
-		);
-		let pollResult: GetReadResultResponse | undefined;
-		let tries = 0;
-		do {
-			await new Promise((res) => setTimeout(res, 1000));
-			pollResult = await this.client.getReadResult(operationId);
-			tries++;
-		} while (
-			pollResult.status === 'notStarted' ||
-			(pollResult.status === 'running' && tries < 20)
-		);
-		if (pollResult.status !== 'succeeded') {
-			throw new Error('Text extraction did not succeed');
-		}
-		return pollResult.analyzeResult;
-	}
-
 	async call(base64Image: string) {
 		const buffer = Buffer.from(base64Image, 'base64');
 		const result = await this.client.readInStream(buffer);
